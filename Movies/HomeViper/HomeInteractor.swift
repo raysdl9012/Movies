@@ -12,18 +12,19 @@ import Foundation
 // Reference to presenter
 
 
-protocol AnyInteractor {
+protocol HomeInteractorProtocol {
 
-    var presenter: AnyPresenter? {get set}
+    var presenter: HomePresenterProtocol? {get set}
     func getMovies()
+    func getMovieById(id: String)
 }
 
-class HomeInteractor: AnyInteractor {
-   
-    var presenter: AnyPresenter?
+class HomeInteractor: HomeInteractorProtocol {
+
+    var presenter: HomePresenterProtocol?
     
     func getMovies() {
-        ManagerRequestServices.instance.getALLMovies { response, error in
+        ManagerRequestServices.instance.getALLMovies {  response, error in
             guard error == nil else{
                 self.presenter?.interactorDidFetchMoviesError(error: error!)
                 return
@@ -35,5 +36,18 @@ class HomeInteractor: AnyInteractor {
         }
     }
     
+    func getMovieById(id: String) {
+        ManagerRequestServices.instance.getMovieById(id: id) { [weak self] (response, error) in
+            guard error == nil else{
+                self?.presenter?.interactorDidFetchMoviesError(error: error!)
+                return
+            }
+            
+            if let responseData = response as? Movie {
+                self?.presenter?.router?.changeViewToDetailMovie(movie: responseData)
+            }
+        }
+    }
     
+
 }

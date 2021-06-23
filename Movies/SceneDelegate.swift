@@ -18,16 +18,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         
         guard let winScene = (scene as? UIWindowScene) else { return }
-        /*
-        let homeVC = HomeViewController.loadFromNib()
-        window = UIWindow(windowScene: winScene)
-        window?.rootViewController = homeVC
-        window?.makeKeyAndVisible()
-        */
-        
-        let router =  HomeRouter.start()
-        let inicialView = (router.entry)!
-        let navController = UINavigationController(rootViewController: inicialView)
+
+        let navController = RouterFacade.instance.getNavegationController()
+        let inicialVC = RouterFacade.instance.getHometView()
+        RouterFacade.instance.setRootViewController(view: inicialVC)
         
         window = UIWindow(windowScene: winScene)
         window?.rootViewController = navController

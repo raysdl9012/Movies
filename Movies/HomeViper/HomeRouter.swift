@@ -11,23 +11,25 @@ import UIKit
 // Object
 // Entry point
 
-typealias EntryPoint = AnyView & UIViewController
+typealias EntryPointHome = HomeViewProtocol & UIViewController
 
-protocol AnyRouter {
-    var entry: EntryPoint? {get}
-    static func start() -> AnyRouter
+protocol HomeRouterProtocol {
+    var entry: EntryPointHome? {get}
+    func changeViewToDetailMovie(movie: Movie)
+    static func start() -> HomeRouterProtocol
 }
 
 
-class HomeRouter: AnyRouter {
-    var entry: EntryPoint?
+class HomeRouter: HomeRouterProtocol {
+  
     
-    static func start() -> AnyRouter {
-        // Crear todo los componentes de VIPER
+    var entry: EntryPointHome?
+    static func start() -> HomeRouterProtocol {
         let router = HomeRouter()
-        var view: AnyView =  HomeViewController()
-        var presenter: AnyPresenter = HomePresenter()
-        var interactor: AnyInteractor = HomeInteractor()
+        
+        var view: HomeViewProtocol =  HomeViewController.loadFromNib()
+        var presenter: HomePresenterProtocol = HomePresenter()
+        var interactor: HomeInteractorProtocol = HomeInteractor()
         
         view.presenter = presenter
         
@@ -36,9 +38,17 @@ class HomeRouter: AnyRouter {
         presenter.router = router
         presenter.interactor = interactor
         
-        
-        router.entry =  view as? EntryPoint
+        router.entry =  view as? EntryPointHome
         
         return router
     }
+    
+    func changeViewToDetailMovie(movie: Movie) {
+        let vc = RouterFacade.instance.getHomeDetail(movie: movie)
+        DispatchQueue.main.async {
+            RouterFacade.instance.pushNavigationController(view: vc)
+        }
+    }
+    
 }
+

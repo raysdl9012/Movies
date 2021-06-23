@@ -8,26 +8,21 @@
 import UIKit
 
 
-protocol AnyView {
-    var presenter: AnyPresenter? {get set}
+protocol HomeViewProtocol {
+    var presenter: HomePresenterProtocol? {get set}
     func updateMovies(with movies:AllMovie)
     func updateMoviesError(with error: Error)
 }
 
-class HomeViewController: UIViewController, AnyView {
+class HomeViewController: UIViewController, HomeViewProtocol {
  
    
-    
-    
-    var presenter: AnyPresenter?
-    
-
+    var presenter: HomePresenterProtocol?
+   
     private let cellIdentifire = "HomeTableViewCell"
     private var listMovies: AllMovie? {
         didSet {
-            DispatchQueue.main.async {
-                self.homeTableView.reloadData()
-            }
+            self.homeTableView.reloadData()
         }
     }
 
@@ -36,6 +31,8 @@ class HomeViewController: UIViewController, AnyView {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.loadTableView()
+        self.presenter?.interactorGetMovie()
+        
     }
     
     private func loadTableView(){
@@ -52,12 +49,16 @@ class HomeViewController: UIViewController, AnyView {
         print("Error")
     }
     
+    func showDetailMovie(movie:Movie) {
+        self.presenter?.interactorGetMovieById(movie: movie)
+    }
 }
 
 
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(indexPath.row)
+        let movie = self.listMovies?.results[indexPath.row]
+        self.showDetailMovie(movie: movie!)
     }
 }
 
