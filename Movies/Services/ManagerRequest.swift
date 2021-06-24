@@ -26,13 +26,7 @@ enum METHOD_HTTP: String {
 class ManagerRequest {
     
     static let instance = ManagerRequest()
-    
-    private var sessionRequest: URLSession
-    
-    init() {
-        print("Init Manager REQUEST")
-        self.sessionRequest = URLSession.shared
-    }
+    private var sessionRequest: URLSession = URLSession.shared
     
     public func makeRequest(
         method:METHOD_HTTP,
