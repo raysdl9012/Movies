@@ -55,10 +55,10 @@ class ManagerRequest {
     public func downloadImage(from posterPath: String, completion: @escaping COMPLETION_DATA) {
         
         guard let url =  URL(string: ENPOINT_MOVIE.BASE_URL_DOWNLOAD_IMAGE.rawValue + posterPath) else { return print("ERROR URL") }
-        
+        print(url)
         URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
-            
             guard error == nil else {
+                
                 completion(nil, error)
                 return
             }
@@ -67,7 +67,7 @@ class ManagerRequest {
         }).resume()
     }
     
-    public func makeRequestAlamoreFire(baseUrl:ENPOINT_MOVIE, endpoint: ENPOINT_MOVIE, params: String, body: Dictionary<String,Any>){
+    public func makeRequestAlamoreFire(){
         
     }
 }

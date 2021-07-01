@@ -24,8 +24,20 @@ class ManagerRequestTest: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func makeRequestTest() {
+    func testMakeRequestDownloadImage() {
+        // Create an expectation for a background download task.
+           let expectation = XCTestExpectation(description: "Download apple.com home page")
+           
+        self.sut.downloadImage(from: "4q2hz2m8hubgvijz8Ez0T2Os2Yv.jpg") { data, error in
+            
+            XCTAssertNil(error, "-> Error not nil")
+            if let image = UIImage(data: data as! Data) {
+                print(image)
+                XCTAssertEqual(image, UIImage(), "No es una imagen")
+            }
+        }
+        // Wait until the expectation is fulfilled, with a timeout of 10 seconds.
+         wait(for: [expectation], timeout: 60.0)
         
-        //given() ~> true
     }
 }

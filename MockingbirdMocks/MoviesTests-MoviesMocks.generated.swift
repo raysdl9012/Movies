@@ -892,7 +892,13 @@ public final class ManagerRequestMock: Movies.ManagerRequest, Mockingbird.Mock {
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.16.0", "module_name": "Movies"])
-  public var sourceLocation: Mockingbird.SourceLocation? { get { fatalError("See 'Thunk Pruning' in the README") } set { fatalError("See 'Thunk Pruning' in the README") } }
+  public var sourceLocation: Mockingbird.SourceLocation? {
+    get { return self.stubbingContext.sourceLocation }
+    set {
+      self.stubbingContext.sourceLocation = newValue
+      ManagerRequestMock.staticMock.stubbingContext.sourceLocation = newValue
+    }
+  }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     super.init()
@@ -900,23 +906,62 @@ public final class ManagerRequestMock: Movies.ManagerRequest, Mockingbird.Mock {
     self.sourceLocation = sourceLocation
   }
 
-  // MARK: Mocked `makeRequestAlamoreFire`(`baseUrl`: Movies.ENPOINT_MOVIE, `endpoint`: Movies.ENPOINT_MOVIE, `params`: String, `body`: Dictionary<String, Any>)
+  // MARK: Mocked `makeRequestAlamoreFire`()
 
-  public override func `makeRequestAlamoreFire`(`baseUrl`: Movies.ENPOINT_MOVIE, `endpoint`: Movies.ENPOINT_MOVIE, `params`: String, `body`: Dictionary<String, Any>) -> Void { fatalError("See 'Thunk Pruning' in the README") }
+  public override func `makeRequestAlamoreFire`() -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`makeRequestAlamoreFire`() -> Void", arguments: [], returnType: Swift.ObjectIdentifier((Void).self))
+    self.mockingContext.didInvoke(invocation) { () -> Void in
+      let implementation = self.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? () -> Void {
+        concreteImplementation()
+      }
+    }
+  }
 
-  public func `makeRequestAlamoreFire`(`baseUrl`: @escaping @autoclosure () -> Movies.ENPOINT_MOVIE, `endpoint`: @escaping @autoclosure () -> Movies.ENPOINT_MOVIE, `params`: @escaping @autoclosure () -> String, `body`: @escaping @autoclosure () -> Dictionary<String, Any>) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Movies.ENPOINT_MOVIE, Movies.ENPOINT_MOVIE, String, Dictionary<String, Any>) -> Void, Void> { fatalError("See 'Thunk Pruning' in the README") }
+  public func `makeRequestAlamoreFire`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`makeRequestAlamoreFire`() -> Void", arguments: [], returnType: Swift.ObjectIdentifier((Void).self))
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
+  }
 
   // MARK: Mocked `makeRequest`(`method`: Movies.METHOD_HTTP, `baseUrl`: Movies.ENPOINT_MOVIE, `endpoint`: Movies.ENPOINT_MOVIE, `params`: String, `body`: Dictionary<String, Any>?, `completion`: @escaping Movies.COMPLETION_HTTP)
 
-  public override func `makeRequest`(`method`: Movies.METHOD_HTTP, `baseUrl`: Movies.ENPOINT_MOVIE, `endpoint`: Movies.ENPOINT_MOVIE, `params`: String, `body`: Dictionary<String, Any>?, `completion`: @escaping Movies.COMPLETION_HTTP) -> Void { fatalError("See 'Thunk Pruning' in the README") }
+  public override func `makeRequest`(`method`: Movies.METHOD_HTTP, `baseUrl`: Movies.ENPOINT_MOVIE, `endpoint`: Movies.ENPOINT_MOVIE, `params`: String, `body`: Dictionary<String, Any>?, `completion`: @escaping Movies.COMPLETION_HTTP) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`makeRequest`(`method`: Movies.METHOD_HTTP, `baseUrl`: Movies.ENPOINT_MOVIE, `endpoint`: Movies.ENPOINT_MOVIE, `params`: String, `body`: Dictionary<String, Any>?, `completion`: @escaping Movies.COMPLETION_HTTP) -> Void", arguments: [Mockingbird.ArgumentMatcher(`method`), Mockingbird.ArgumentMatcher(`baseUrl`), Mockingbird.ArgumentMatcher(`endpoint`), Mockingbird.ArgumentMatcher(`params`), Mockingbird.ArgumentMatcher(`body`), Mockingbird.ArgumentMatcher(`completion`)], returnType: Swift.ObjectIdentifier((Void).self))
+    self.mockingContext.didInvoke(invocation) { () -> Void in
+      let implementation = self.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (Movies.METHOD_HTTP, Movies.ENPOINT_MOVIE, Movies.ENPOINT_MOVIE, String, Dictionary<String, Any>?, @escaping Movies.COMPLETION_HTTP) -> Void {
+        concreteImplementation(`method`, `baseUrl`, `endpoint`, `params`, `body`, `completion`)
+      } else if let concreteImplementation = implementation as? () -> Void {
+        concreteImplementation()
+      }
+    }
+  }
 
-  public func `makeRequest`(`method`: @escaping @autoclosure () -> Movies.METHOD_HTTP, `baseUrl`: @escaping @autoclosure () -> Movies.ENPOINT_MOVIE, `endpoint`: @escaping @autoclosure () -> Movies.ENPOINT_MOVIE, `params`: @escaping @autoclosure () -> String, `body`: @escaping @autoclosure () -> Dictionary<String, Any>?, `completion`: @escaping @autoclosure () -> Movies.COMPLETION_HTTP) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Movies.METHOD_HTTP, Movies.ENPOINT_MOVIE, Movies.ENPOINT_MOVIE, String, Dictionary<String, Any>?, @escaping Movies.COMPLETION_HTTP) -> Void, Void> { fatalError("See 'Thunk Pruning' in the README") }
+  public func `makeRequest`(`method`: @escaping @autoclosure () -> Movies.METHOD_HTTP, `baseUrl`: @escaping @autoclosure () -> Movies.ENPOINT_MOVIE, `endpoint`: @escaping @autoclosure () -> Movies.ENPOINT_MOVIE, `params`: @escaping @autoclosure () -> String, `body`: @escaping @autoclosure () -> Dictionary<String, Any>?, `completion`: @escaping @autoclosure () -> Movies.COMPLETION_HTTP) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Movies.METHOD_HTTP, Movies.ENPOINT_MOVIE, Movies.ENPOINT_MOVIE, String, Dictionary<String, Any>?, @escaping Movies.COMPLETION_HTTP) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`method`), Mockingbird.resolve(`baseUrl`), Mockingbird.resolve(`endpoint`), Mockingbird.resolve(`params`), Mockingbird.resolve(`body`), Mockingbird.resolve(`completion`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`makeRequest`(`method`: Movies.METHOD_HTTP, `baseUrl`: Movies.ENPOINT_MOVIE, `endpoint`: Movies.ENPOINT_MOVIE, `params`: String, `body`: Dictionary<String, Any>?, `completion`: @escaping Movies.COMPLETION_HTTP) -> Void", arguments: arguments, returnType: Swift.ObjectIdentifier((Void).self))
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Movies.METHOD_HTTP, Movies.ENPOINT_MOVIE, Movies.ENPOINT_MOVIE, String, Dictionary<String, Any>?, @escaping Movies.COMPLETION_HTTP) -> Void, Void>(mock: self, invocation: invocation)
+  }
 
   // MARK: Mocked `downloadImage`(`from` `posterPath`: String, `completion`: @escaping Movies.COMPLETION_DATA)
 
-  public override func `downloadImage`(`from` `posterPath`: String, `completion`: @escaping Movies.COMPLETION_DATA) -> Void { fatalError("See 'Thunk Pruning' in the README") }
+  public override func `downloadImage`(`from` `posterPath`: String, `completion`: @escaping Movies.COMPLETION_DATA) -> Void {
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`downloadImage`(`from` `posterPath`: String, `completion`: @escaping Movies.COMPLETION_DATA) -> Void", arguments: [Mockingbird.ArgumentMatcher(`posterPath`), Mockingbird.ArgumentMatcher(`completion`)], returnType: Swift.ObjectIdentifier((Void).self))
+    self.mockingContext.didInvoke(invocation) { () -> Void in
+      let implementation = self.stubbingContext.implementation(for: invocation)
+      if let concreteImplementation = implementation as? (String, @escaping Movies.COMPLETION_DATA) -> Void {
+        concreteImplementation(`posterPath`, `completion`)
+      } else if let concreteImplementation = implementation as? () -> Void {
+        concreteImplementation()
+      }
+    }
+  }
 
-  public func `downloadImage`(`from` `posterPath`: @escaping @autoclosure () -> String, `completion`: @escaping @autoclosure () -> Movies.COMPLETION_DATA) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String, @escaping Movies.COMPLETION_DATA) -> Void, Void> { fatalError("See 'Thunk Pruning' in the README") }
+  public func `downloadImage`(`from` `posterPath`: @escaping @autoclosure () -> String, `completion`: @escaping @autoclosure () -> Movies.COMPLETION_DATA) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String, @escaping Movies.COMPLETION_DATA) -> Void, Void> {
+    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`posterPath`), Mockingbird.resolve(`completion`)]
+    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`downloadImage`(`from` `posterPath`: String, `completion`: @escaping Movies.COMPLETION_DATA) -> Void", arguments: arguments, returnType: Swift.ObjectIdentifier((Void).self))
+    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (String, @escaping Movies.COMPLETION_DATA) -> Void, Void>(mock: self, invocation: invocation)
+  }
 }
 
 /// Returns a concrete mock of `ManagerRequest`.
@@ -931,13 +976,7 @@ public final class RouterFacadeMock: Movies.RouterFacade, Mockingbird.Mock {
   public let mockingContext = Mockingbird.MockingContext()
   public let stubbingContext = Mockingbird.StubbingContext()
   public let mockMetadata = Mockingbird.MockMetadata(["generator_version": "0.16.0", "module_name": "Movies"])
-  public var sourceLocation: Mockingbird.SourceLocation? {
-    get { return self.stubbingContext.sourceLocation }
-    set {
-      self.stubbingContext.sourceLocation = newValue
-      RouterFacadeMock.staticMock.stubbingContext.sourceLocation = newValue
-    }
-  }
+  public var sourceLocation: Mockingbird.SourceLocation? { get { fatalError("See 'Thunk Pruning' in the README") } set { fatalError("See 'Thunk Pruning' in the README") } }
 
   fileprivate init(sourceLocation: Mockingbird.SourceLocation) {
     super.init()
@@ -947,146 +986,45 @@ public final class RouterFacadeMock: Movies.RouterFacade, Mockingbird.Mock {
 
   // MARK: Mocked `getHometView`()
 
-  public override func `getHometView`() -> UIKit.UIViewController {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`getHometView`() -> UIKit.UIViewController", arguments: [], returnType: Swift.ObjectIdentifier((UIKit.UIViewController).self))
-    return self.mockingContext.didInvoke(invocation) { () -> UIKit.UIViewController in
-      let implementation = self.stubbingContext.implementation(for: invocation)
-      if let concreteImplementation = implementation as? () -> UIKit.UIViewController {
-        return concreteImplementation()
-      } else if let defaultValue = self.stubbingContext.defaultValueProvider.provideValue(for: (UIKit.UIViewController).self) {
-        return defaultValue
-      } else {
-        fatalError(self.stubbingContext.failTest(for: invocation))
-      }
-    }
-  }
+  public override func `getHometView`() -> UIKit.UIViewController { fatalError("See 'Thunk Pruning' in the README") }
 
-  public func `getHometView`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> UIKit.UIViewController, UIKit.UIViewController> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`getHometView`() -> UIKit.UIViewController", arguments: [], returnType: Swift.ObjectIdentifier((UIKit.UIViewController).self))
-    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> UIKit.UIViewController, UIKit.UIViewController>(mock: self, invocation: invocation)
-  }
+  public func `getHometView`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> UIKit.UIViewController, UIKit.UIViewController> { fatalError("See 'Thunk Pruning' in the README") }
 
   // MARK: Mocked `getHomeDetail`(`movie`: Movies.Movie)
 
-  public override func `getHomeDetail`(`movie`: Movies.Movie) -> UIKit.UIViewController {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`getHomeDetail`(`movie`: Movies.Movie) -> UIKit.UIViewController", arguments: [Mockingbird.ArgumentMatcher(`movie`)], returnType: Swift.ObjectIdentifier((UIKit.UIViewController).self))
-    return self.mockingContext.didInvoke(invocation) { () -> UIKit.UIViewController in
-      let implementation = self.stubbingContext.implementation(for: invocation)
-      if let concreteImplementation = implementation as? (Movies.Movie) -> UIKit.UIViewController {
-        return concreteImplementation(`movie`)
-      } else if let concreteImplementation = implementation as? () -> UIKit.UIViewController {
-        return concreteImplementation()
-      } else if let defaultValue = self.stubbingContext.defaultValueProvider.provideValue(for: (UIKit.UIViewController).self) {
-        return defaultValue
-      } else {
-        fatalError(self.stubbingContext.failTest(for: invocation))
-      }
-    }
-  }
+  public override func `getHomeDetail`(`movie`: Movies.Movie) -> UIKit.UIViewController { fatalError("See 'Thunk Pruning' in the README") }
 
-  public func `getHomeDetail`(`movie`: @escaping @autoclosure () -> Movies.Movie) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Movies.Movie) -> UIKit.UIViewController, UIKit.UIViewController> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`movie`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`getHomeDetail`(`movie`: Movies.Movie) -> UIKit.UIViewController", arguments: arguments, returnType: Swift.ObjectIdentifier((UIKit.UIViewController).self))
-    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Movies.Movie) -> UIKit.UIViewController, UIKit.UIViewController>(mock: self, invocation: invocation)
-  }
+  public func `getHomeDetail`(`movie`: @escaping @autoclosure () -> Movies.Movie) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (Movies.Movie) -> UIKit.UIViewController, UIKit.UIViewController> { fatalError("See 'Thunk Pruning' in the README") }
 
   // MARK: Mocked `getNavegationController`()
 
-  public override func `getNavegationController`() -> UINavigationController {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`getNavegationController`() -> UINavigationController", arguments: [], returnType: Swift.ObjectIdentifier((UINavigationController).self))
-    return self.mockingContext.didInvoke(invocation) { () -> UINavigationController in
-      let implementation = self.stubbingContext.implementation(for: invocation)
-      if let concreteImplementation = implementation as? () -> UINavigationController {
-        return concreteImplementation()
-      } else if let defaultValue = self.stubbingContext.defaultValueProvider.provideValue(for: (UINavigationController).self) {
-        return defaultValue
-      } else {
-        fatalError(self.stubbingContext.failTest(for: invocation))
-      }
-    }
-  }
+  public override func `getNavegationController`() -> UINavigationController { fatalError("See 'Thunk Pruning' in the README") }
 
-  public func `getNavegationController`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> UINavigationController, UINavigationController> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`getNavegationController`() -> UINavigationController", arguments: [], returnType: Swift.ObjectIdentifier((UINavigationController).self))
-    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> UINavigationController, UINavigationController>(mock: self, invocation: invocation)
-  }
+  public func `getNavegationController`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> UINavigationController, UINavigationController> { fatalError("See 'Thunk Pruning' in the README") }
 
   // MARK: Mocked `backNavigationController`()
 
-  public override func `backNavigationController`() -> Void {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`backNavigationController`() -> Void", arguments: [], returnType: Swift.ObjectIdentifier((Void).self))
-    self.mockingContext.didInvoke(invocation) { () -> Void in
-      let implementation = self.stubbingContext.implementation(for: invocation)
-      if let concreteImplementation = implementation as? () -> Void {
-        concreteImplementation()
-      }
-    }
-  }
+  public override func `backNavigationController`() -> Void { fatalError("See 'Thunk Pruning' in the README") }
 
-  public func `backNavigationController`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`backNavigationController`() -> Void", arguments: [], returnType: Swift.ObjectIdentifier((Void).self))
-    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void>(mock: self, invocation: invocation)
-  }
+  public func `backNavigationController`() -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, () -> Void, Void> { fatalError("See 'Thunk Pruning' in the README") }
 
   // MARK: Mocked `pushNavigationController`(`view`: UIKit.UIViewController)
 
-  public override func `pushNavigationController`(`view`: UIKit.UIViewController) -> Void {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`pushNavigationController`(`view`: UIKit.UIViewController) -> Void", arguments: [Mockingbird.ArgumentMatcher(`view`)], returnType: Swift.ObjectIdentifier((Void).self))
-    self.mockingContext.didInvoke(invocation) { () -> Void in
-      let implementation = self.stubbingContext.implementation(for: invocation)
-      if let concreteImplementation = implementation as? (UIKit.UIViewController) -> Void {
-        concreteImplementation(`view`)
-      } else if let concreteImplementation = implementation as? () -> Void {
-        concreteImplementation()
-      }
-    }
-  }
+  public override func `pushNavigationController`(`view`: UIKit.UIViewController) -> Void { fatalError("See 'Thunk Pruning' in the README") }
 
-  public func `pushNavigationController`(`view`: @escaping @autoclosure () -> UIKit.UIViewController) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (UIKit.UIViewController) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`view`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`pushNavigationController`(`view`: UIKit.UIViewController) -> Void", arguments: arguments, returnType: Swift.ObjectIdentifier((Void).self))
-    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (UIKit.UIViewController) -> Void, Void>(mock: self, invocation: invocation)
-  }
+  public func `pushNavigationController`(`view`: @escaping @autoclosure () -> UIKit.UIViewController) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (UIKit.UIViewController) -> Void, Void> { fatalError("See 'Thunk Pruning' in the README") }
 
   // MARK: Mocked `setRootViewController`(`view`: UIKit.UIViewController)
 
-  public override func `setRootViewController`(`view`: UIKit.UIViewController) -> Void {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`setRootViewController`(`view`: UIKit.UIViewController) -> Void", arguments: [Mockingbird.ArgumentMatcher(`view`)], returnType: Swift.ObjectIdentifier((Void).self))
-    self.mockingContext.didInvoke(invocation) { () -> Void in
-      let implementation = self.stubbingContext.implementation(for: invocation)
-      if let concreteImplementation = implementation as? (UIKit.UIViewController) -> Void {
-        concreteImplementation(`view`)
-      } else if let concreteImplementation = implementation as? () -> Void {
-        concreteImplementation()
-      }
-    }
-  }
+  public override func `setRootViewController`(`view`: UIKit.UIViewController) -> Void { fatalError("See 'Thunk Pruning' in the README") }
 
-  public func `setRootViewController`(`view`: @escaping @autoclosure () -> UIKit.UIViewController) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (UIKit.UIViewController) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`view`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`setRootViewController`(`view`: UIKit.UIViewController) -> Void", arguments: arguments, returnType: Swift.ObjectIdentifier((Void).self))
-    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (UIKit.UIViewController) -> Void, Void>(mock: self, invocation: invocation)
-  }
+  public func `setRootViewController`(`view`: @escaping @autoclosure () -> UIKit.UIViewController) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (UIKit.UIViewController) -> Void, Void> { fatalError("See 'Thunk Pruning' in the README") }
 
   // MARK: Mocked `backNavigationController`(`to` `viewController`: UIKit.UIViewController)
 
-  public override func `backNavigationController`(`to` `viewController`: UIKit.UIViewController) -> Void {
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`backNavigationController`(`to` `viewController`: UIKit.UIViewController) -> Void", arguments: [Mockingbird.ArgumentMatcher(`viewController`)], returnType: Swift.ObjectIdentifier((Void).self))
-    self.mockingContext.didInvoke(invocation) { () -> Void in
-      let implementation = self.stubbingContext.implementation(for: invocation)
-      if let concreteImplementation = implementation as? (UIKit.UIViewController) -> Void {
-        concreteImplementation(`viewController`)
-      } else if let concreteImplementation = implementation as? () -> Void {
-        concreteImplementation()
-      }
-    }
-  }
+  public override func `backNavigationController`(`to` `viewController`: UIKit.UIViewController) -> Void { fatalError("See 'Thunk Pruning' in the README") }
 
-  public func `backNavigationController`(`to` `viewController`: @escaping @autoclosure () -> UIKit.UIViewController) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (UIKit.UIViewController) -> Void, Void> {
-    let arguments: [Mockingbird.ArgumentMatcher] = [Mockingbird.resolve(`viewController`)]
-    let invocation: Mockingbird.Invocation = Mockingbird.Invocation(selectorName: "`backNavigationController`(`to` `viewController`: UIKit.UIViewController) -> Void", arguments: arguments, returnType: Swift.ObjectIdentifier((Void).self))
-    return Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (UIKit.UIViewController) -> Void, Void>(mock: self, invocation: invocation)
-  }
+  public func `backNavigationController`(`to` `viewController`: @escaping @autoclosure () -> UIKit.UIViewController) -> Mockingbird.Mockable<Mockingbird.FunctionDeclaration, (UIKit.UIViewController) -> Void, Void> { fatalError("See 'Thunk Pruning' in the README") }
 }
 
 /// Returns a concrete mock of `RouterFacade`.

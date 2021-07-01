@@ -51,13 +51,13 @@ class HomeTableViewCell: UITableViewCell {
         
         // [weak self] Liberar Retencion de ciclos
         
-        ManagerRequestServices.instance.getImageByPosterPath(posterPath: path) { [weak self]  (data, error) in
+        ManagerRequestServices.instance.getImageByPosterPath(posterPath: path) { [weak self]  (imageResponse, error) in
             guard error == nil else{
                 print("Error \(error!)")
                 return
             }
             
-            if let image = UIImage(data: data! as! Data) {
+            if let image = imageResponse as? UIImage {
                 DispatchQueue.main.async {
                     ManagerCache.instance.saveImageInCache(image: image, forKey: path)
                     self!.posterImageMovie?.image = image

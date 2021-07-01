@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 class ManagerRequestServices {
@@ -55,8 +56,16 @@ class ManagerRequestServices {
                 completion(nil, error)
                 return
             }
-            completion(data,nil)
+            let image = self.convertDataToImage(data: data as! Data)
+            completion(image,nil)
         }
+    }
+    
+    private func convertDataToImage(data:Data) -> UIImage? {
+        guard let image = UIImage(data: data) else {
+            return nil
+        }
+        return image
     }
     
     private func convertMovies(data:Data) -> AllMovie? {
