@@ -6,6 +6,7 @@
 //
 
 import XCTest
+// import Mockingbird
 @testable import Movies
 
 class ManagerRequestTest: XCTestCase {
@@ -13,7 +14,6 @@ class ManagerRequestTest: XCTestCase {
     var sut:ManagerRequest?
     let expectation = XCTestExpectation(description: "Download Images")
      
-
     override func setUpWithError() throws {
         self.sut = ManagerRequest()
         // Put setup code here. This method is called before the invocation of each test method in the class.
