@@ -15,7 +15,7 @@ class ManagerRequestServices {
         ManagerRequest.instance.makeRequest(method: .GET,
                                             baseUrl: .BASE_URL,
                                             endpoint: .NOW_PLAYING,
-                                            params: "?api_key=d760e019de605eee41529938d662657c",
+                                            params: "",
                                             body: nil) { data, error in
             
             guard error == nil else {
@@ -34,7 +34,7 @@ class ManagerRequestServices {
         ManagerRequest.instance.makeRequest(method: .GET,
                                             baseUrl: .BASE_URL,
                                             endpoint: .MOVIE  ,
-                                            params: id + "?api_key=d760e019de605eee41529938d662657c",
+                                            params: id + "",
                                             body: nil) { data, error in
             
             guard error == nil else {

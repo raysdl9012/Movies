@@ -16,6 +16,7 @@ enum ENPOINT_MOVIE: String {
     case BASE_URL_DOWNLOAD_IMAGE = "https://image.tmdb.org/t/p/w500"
     case NOW_PLAYING = "movie/now_playing"
     case MOVIE = "movie/"
+    case API_KEY = "?api_key=d760e019de605eee41529938d662657c"
 }
 
 enum METHOD_HTTP: String {
@@ -27,11 +28,10 @@ class ManagerRequest {
     
     static let instance = ManagerRequest()
     
-    private var sessionRequest: URLSession
+    private var sessionRequest: URLSession = URLSession.shared
     
     init() {
-        print("Init Manager REQUEST")
-        self.sessionRequest = URLSession.shared
+        
     }
     
     public func makeRequest(
@@ -41,7 +41,8 @@ class ManagerRequest {
         params: String,
         body: Dictionary<String,Any>?, completion: @escaping COMPLETION_HTTP){
         
-        guard let url =  URL(string: baseUrl.rawValue + endpoint.rawValue + params) else { return print("ERROR URL") }
+        let paramsRequest = ENPOINT_MOVIE.API_KEY.rawValue + params
+        guard let url =  URL(string: baseUrl.rawValue + endpoint.rawValue + paramsRequest) else { return print("ERROR URL") }
         
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
@@ -61,15 +62,25 @@ class ManagerRequest {
     public func downloadImage(from posterPath: String, completion: @escaping COMPLETION_DATA) {
         
         guard let url =  URL(string: ENPOINT_MOVIE.BASE_URL_DOWNLOAD_IMAGE.rawValue + posterPath) else { return print("ERROR URL") }
-        
+        print(url)
         URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
             
-            guard error == nil else {
+            guard let data = data, error == nil, let response = response as? HTTPURLResponse else {
                 completion(nil, error)
                 return
             }
-            completion(data, nil)
-
+            print(response.statusCode)
+            
+            if (response.statusCode == 400) {
+                completion(nil, error)
+                return
+            }
+            
+            if (response.statusCode == 200) {
+                completion(data, nil)
+                return
+            }
+            
         }).resume()
     }
     

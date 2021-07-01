@@ -21,7 +21,16 @@ class ManagerRequestServicesTest: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func getAllMovies() {
-        print("aca")
-    }
+//    func testDownloadImage() {
+//        self.sut?.downloadImage(from: "/z8CExJekGrEThbpMXAmCFvvgoJR.jpg") { (data, error) in
+//            XCTAssertNil(error, "Error, Error was not nill")
+//            let image = UIImage(data: data as! Data)
+//            XCTAssertNotNil(image, "Error, Imaga was nill")
+//            let equalImage = type(of: image!) == UIImage.self
+//            XCTAssert(equalImage, "The data is not a image")
+//            self.expectation.fulfill()
+//        }
+//        wait(for: [self.expectation], timeout: 10)
+//    }
+
 }
