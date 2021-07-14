@@ -41,9 +41,8 @@ class ManagerRequest {
         params: String,
         body: Dictionary<String,Any>?, completion: @escaping COMPLETION_HTTP){
         
-        let paramsRequest = ENPOINT_MOVIE.API_KEY.rawValue + params
+        let paramsRequest = params + ENPOINT_MOVIE.API_KEY.rawValue 
         guard let url =  URL(string: baseUrl.rawValue + endpoint.rawValue + paramsRequest) else { return print("ERROR URL") }
-        
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         self.sessionRequest.dataTask(with: request) { (data, response, error) in
@@ -62,7 +61,6 @@ class ManagerRequest {
     public func downloadImage(from posterPath: String, completion: @escaping COMPLETION_DATA) {
         
         guard let url =  URL(string: ENPOINT_MOVIE.BASE_URL_DOWNLOAD_IMAGE.rawValue + posterPath) else { return print("ERROR URL") }
-        print(url)
         URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
 
             guard let data = data, error == nil, let response = response as? HTTPURLResponse else {

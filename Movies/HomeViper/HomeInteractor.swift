@@ -37,12 +37,13 @@ class HomeInteractor: HomeInteractorProtocol {
     }
     
     func getMovieById(id: String) {
+        print(id)
         ManagerRequestServices.instance.getMovieById(id: id) { [weak self] (response, error) in
             guard error == nil else{
                 self?.presenter?.interactorDidFetchMoviesError(error: error!)
                 return
             }
-            
+            print(response)
             if let responseData = response as? Movie {
                 self?.presenter?.router?.changeViewToDetailMovie(movie: responseData)
             }
