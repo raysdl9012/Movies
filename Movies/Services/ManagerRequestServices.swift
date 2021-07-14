@@ -10,13 +10,14 @@ import UIKit
 
 
 class ManagerRequestServices {
+    
     static let instance = ManagerRequestServices()
     
     func getALLMovies(completion: @escaping COMPLETION_DATA)  {
         ManagerRequest.instance.makeRequest(method: .GET,
                                             baseUrl: .BASE_URL,
                                             endpoint: .NOW_PLAYING,
-                                            params: "?api_key=d760e019de605eee41529938d662657c",
+                                            params: "",
                                             body: nil) { data, error in
             
             guard error == nil else {
@@ -35,7 +36,7 @@ class ManagerRequestServices {
         ManagerRequest.instance.makeRequest(method: .GET,
                                             baseUrl: .BASE_URL,
                                             endpoint: .MOVIE  ,
-                                            params: id + "?api_key=d760e019de605eee41529938d662657c",
+                                            params: id + "",
                                             body: nil) { data, error in
             
             guard error == nil else {
@@ -44,6 +45,7 @@ class ManagerRequestServices {
             }
             
             guard let movie = self.convertMovie(data: data!) else {
+                completion(nil, nil)
                 return
             }
             completion(movie,error)
@@ -51,8 +53,9 @@ class ManagerRequestServices {
     }
     
     func getImageByPosterPath(posterPath: String, completion: @escaping COMPLETION_DATA) {
+        
         ManagerRequest.instance.downloadImage(from: posterPath) { (data, error) in
-            guard error == nil else {
+            guard error == nil, data != nil else {
                 completion(nil, error)
                 return
             }
@@ -60,7 +63,7 @@ class ManagerRequestServices {
             completion(image,nil)
         }
     }
-    
+        
     private func convertDataToImage(data:Data) -> UIImage? {
         guard let image = UIImage(data: data) else {
             return nil

@@ -39,7 +39,7 @@
 		2CC761666754FE1FCBFBE9C0 /* Pods_Movies_MoviesUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3338E1E6A6E59A1D0F35F32A /* Pods_Movies_MoviesUITests.framework */; };
 		8193332F09153B9EAC709A84 /* Pods_MoviesTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 874E0DF00C19D325B555246F /* Pods_MoviesTests.framework */; };
 		8C96E4EBA0E0635A9ACBF43B /* Pods_Movies.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22CF52EE63D302972D5897B7 /* Pods_Movies.framework */; };
-		C614B473FBBDBAE6A1F70EA1 /* MoviesTests-MoviesMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178557690CE112E286C4EC43 /* MoviesTests-MoviesMocks.generated.swift */; };
+		E4EBE1970AB105E61DA92522 /* MoviesTests-MoviesMocks.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178557690CE112E286C4EC43 /* MoviesTests-MoviesMocks.generated.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -493,11 +493,11 @@
 			);
 			name = "Clean Mockingbird Mocks";
 			outputPaths = (
-				"/tmp/Mockingbird-3BAC4731-7307-42BE-A8C1-070EBCF616EA",
+				"/tmp/Mockingbird-2A32E8D3-4041-47AA-88DD-94C73259D1F6",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "echo $RANDOM > '/tmp/Mockingbird-3BAC4731-7307-42BE-A8C1-070EBCF616EA'\n";
+			shellScript = "echo $RANDOM > '/tmp/Mockingbird-2A32E8D3-4041-47AA-88DD-94C73259D1F6'\n";
 		};
 		F0E6429CA0D24FCCD7F56FCB /* Generate Mockingbird Mocks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -505,7 +505,7 @@
 			files = (
 			);
 			inputPaths = (
-				"/tmp/Mockingbird-3BAC4731-7307-42BE-A8C1-070EBCF616EA",
+				"/tmp/Mockingbird-2A32E8D3-4041-47AA-88DD-94C73259D1F6",
 			);
 			name = "Generate Mockingbird Mocks";
 			outputPaths = (
@@ -513,7 +513,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n\nmockingbird generate \\\n  --targets 'Movies' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/MoviesTests-MoviesMocks.generated.swift\" \\\n  --support \"${SRCROOT}/MockingbirdSupport\"\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-3BAC4731-7307-42BE-A8C1-070EBCF616EA'\n";
+			shellScript = "set -e\n\nmockingbird generate \\\n  --targets 'Movies' \\\n  --outputs \"${SRCROOT}/MockingbirdMocks/MoviesTests-MoviesMocks.generated.swift\" \\\n  --support \"${SRCROOT}/MockingbirdSupport\"\n\n# Ensure mocks are generated prior to running Compile Sources\nrm -f '/tmp/Mockingbird-2A32E8D3-4041-47AA-88DD-94C73259D1F6'\n";
 		};
 		FB909E682FF516733C415C56 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -595,7 +595,7 @@
 				007FABE92675BBC500C460BC /* MoviesTests.swift in Sources */,
 				00A31AF326837544005F9CE6 /* ManagerRequestTest.swift in Sources */,
 				002DB0262682431D0051126C /* ManagerRequestServicesTest.swift in Sources */,
-				C614B473FBBDBAE6A1F70EA1 /* MoviesTests-MoviesMocks.generated.swift in Sources */,
+				E4EBE1970AB105E61DA92522 /* MoviesTests-MoviesMocks.generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
